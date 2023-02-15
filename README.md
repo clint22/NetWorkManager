@@ -14,7 +14,7 @@ I created the network manager for several reasons.
 
 ### How to use from the app module? 
 
-First, create an instance of the ```CustomUiNetworkManager``` in your view model or any class you do the background operation.
+First, create an instance of the ```CustomUiNetworkManager``` in your view model or any class that performs background operations.
 
 ```
 private val customUiNetworkManager: CustomUiNetworkManager by lazy {
@@ -22,7 +22,7 @@ private val customUiNetworkManager: CustomUiNetworkManager by lazy {
 }
 ```
 
-```CustomUiNetworkManager``` exposes two API calls that takes a custom URL as a param and gives appropriate response. ( Please change it according to your requirement )
+```CustomUiNetworkManager``` exposes two API calls that takes a custom URL as a parameter and return an appropriate response. Please adjust these calls to fit your specific requirements.
 
 ```
 interface CustomUiNetworkManager {
@@ -30,3 +30,23 @@ interface CustomUiNetworkManager {
     suspend fun fetchLogo(url: String): ApiResult<String>?
 }
 ```
+Suppose, you are calling the API from your view model, you can fetch the result like this:
+
+```
+fun fetchCustomUi(url: String) {
+        viewModelScope.launch {
+            when(val response = customUiNetworkManager.fetchCustomUI(url)) {
+                is ApiResult.Success ->  _customUi.value = response.data
+                is ApiResult.Error ->  _errorHandling.value = response.exception?.message
+                else -> _errorHandling.value = "Sorry, some error occurred"
+            }
+        }
+    }
+```
+Because we wrapped the response inside a sealed class, it's easy to distinguish between a successful response and a failure response using an exception.
+
+### Find this repo useful 🤟?
+Please star it 🌟 and follow me on __[LinkedIn](https://www.linkedin.com/in/clint-paul-2504bba7/)__ 
+
+Also, do checkout my __[blog](https://clintpauldev.com/)__ for Android related articles.
+
