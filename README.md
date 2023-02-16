@@ -45,6 +45,11 @@ fun fetchCustomUi(url: String) {
 ```
 Because we wrapped the response inside a sealed class, it's easy to distinguish between a successful response and a failure response using an exception.
 
+### Please note 
+
+I'm using a temporary JSON bin to fetch the details. If the network call is failing using the sample app, you have to change the base URL from the Network module library and the end point point from the sample app.
+
+
 ### Find this repo useful 🤟?
 Please star it 🌟 and follow me on __[LinkedIn](https://www.linkedin.com/in/clint-paul-2504bba7/)__ 
 
